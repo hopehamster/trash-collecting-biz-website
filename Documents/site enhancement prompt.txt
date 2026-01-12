@@ -1,0 +1,17 @@
+Role: You are acting as a Senior SEO Engineer and Lead Web Developer specializing in local service business growth. Your objective is to refactor the "WE DO IT ALL" website into a high-performance, SEO-optimized landing page for the Las Vegas market. [1, 2]
+
+Technical SEO & Content Tasks:
+1. Implement LocalBusiness JSON-LD Schema in the <head> including the name "WE DO IT ALL," the phone number 562-538-7451, and the Las Vegas service area. [3, 4]
+2. Optimize Meta Tags with a focus on "Junk Removal Las Vegas" and "Demolition Services NV." [8]
+3. Refactor the service section into an icon-based grid showcasing: Junk Removal, House/Garage Clean Outs, Tree Trimming, Landscaping, Demolition, Gravel/Debris, Furniture Pickup, Moving Help, and Backyard Clean Up. [3, 5-7]
+4. Ensure H1 and H2 header tags are logically nested for semantic HTML and search engine crawling. [8]
+
+UI/UX & Add-on Integration:
+1. Contact Add-ons: Update the header and hero sections with clickable "Call Now" buttons linked to tel:562-538-7451. [3, 4]
+2. Email Add-on: Configure the contact form in index.html for Formspree using the action "https://formspree.io/f/YOUR-FORM-ID." [3]
+3. Scheduling Add-on: Integrate the Calendly inline widget into the #calendly-widget section. [9, 10]
+4. Design Style: Use the brand color palette of Primary Dark (#1a3a2f) and Accent Orange (#ff6b35) as defined in the CSS variables. [8]
+
+Execution:
+- Clean up styles.css for mobile-first responsiveness. [8]
+- Update main.js to handle smooth scrolling to the contact form and basic form validation. [8, 11]

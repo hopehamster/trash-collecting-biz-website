@@ -165,78 +165,54 @@ function initBackToTop() {
  */
 function initFormHandling() {
     const form = document.getElementById('contact-form');
+    const status = document.getElementById("my-form-status");
 
     if (!form) return;
 
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Get form data
-        const formData = new FormData(form);
-        const data = {};
-        formData.forEach(function(value, key) {
-            data[key] = value;
-        });
-
-        // Basic validation
-        if (!data.name || !data.email || !data.phone) {
-            showNotification('Please fill in all required fields.', 'error');
-            return;
-        }
-
-        // Email validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(data.email)) {
-            showNotification('Please enter a valid email address.', 'error');
-            return;
-        }
-
-        // Simulate form submission (replace with actual submission)
+    async function handleSubmit(event) {
+        event.preventDefault();
+        const data = new FormData(event.target);
+        
+        // Disable button and show loading state
         const submitBtn = form.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        
         submitBtn.innerHTML = '<span>Sending...</span>';
         submitBtn.disabled = true;
 
-        // Simulate API call
-        setTimeout(function() {
-            // Show success message
-            showNotification('Thank you! We\'ll be in touch soon.', 'success');
-            
-            // Reset form
-            form.reset();
-            
-            // Restore button
-            submitBtn.innerHTML = originalText;
-            submitBtn.disabled = false;
-        }, 1500);
-
-        /*
-        // For actual Formspree submission, use:
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
+        fetch(event.target.action, {
+            method: form.method,
+            body: data,
             headers: {
                 'Accept': 'application/json'
             }
-        })
-        .then(response => {
+        }).then(response => {
             if (response.ok) {
-                showNotification('Thank you! We\'ll be in touch soon.', 'success');
+                status.innerHTML = "Thanks for your submission!";
+                status.className = "success-message";
                 form.reset();
+                showNotification('Thanks for your submission! We\'ll be in touch soon.', 'success');
             } else {
-                showNotification('Oops! There was a problem. Please try again.', 'error');
+                response.json().then(data => {
+                    if (Object.hasOwn(data, 'errors')) {
+                        status.innerHTML = data["errors"].map(error => error["message"]).join(", ");
+                        showNotification(data["errors"].map(error => error["message"]).join(", "), 'error');
+                    } else {
+                        status.innerHTML = "Oops! There was a problem submitting your form";
+                        showNotification('Oops! There was a problem submitting your form', 'error');
+                    }
+                })
             }
-        })
-        .catch(error => {
-            showNotification('Oops! There was a problem. Please try again.', 'error');
-        })
-        .finally(() => {
+        }).catch(error => {
+            status.innerHTML = "Oops! There was a problem submitting your form";
+            showNotification('Oops! There was a problem submitting your form', 'error');
+        }).finally(() => {
+            // Restore button
             submitBtn.innerHTML = originalText;
             submitBtn.disabled = false;
         });
-        */
-    });
+    }
+    
+    form.addEventListener("submit", handleSubmit);
 
     // Phone number formatting
     const phoneInput = document.getElementById('phone');
