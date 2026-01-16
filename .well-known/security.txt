@@ -1,0 +1,14 @@
+Contact: mailto:dc.greenfactory@icloud.com
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+Canonical: https://www.wedoitallnv.com/.well-known/security.txt
+
+# Security Policy
+# If you discover a security vulnerability, please email us at the contact above.
+# We appreciate responsible disclosure and will respond promptly.
+
+# Scope
+# This security policy applies to www.wedoitallnv.com and all subdomains.
+
+# Acknowledgments
+# We appreciate security researchers who help keep our site secure.
