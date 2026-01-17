@@ -259,13 +259,11 @@ function initFormHandling() {
         if (emailInput) emailInput.value = email;
         if (messageInput) messageInput.value = message;
         
-        // Set _replyto field for FormSubmit.co (allows recipient to reply directly to sender)
-        const replyToField = form.querySelector('#form-replyto');
-        if (replyToField) {
-            replyToField.value = email;
-        }
-        
         const data = new FormData(event.target);
+        
+        // Add _replyto dynamically - FormSubmit.co will use the email field value
+        // This allows the recipient to reply directly to the sender
+        data.append('_replyto', email);
 
         // Disable button and show loading state
         const submitBtn = form.querySelector('button[type="submit"]');
@@ -282,32 +280,40 @@ function initFormHandling() {
             headers: {
                 'Accept': 'application/json'
             }
-        }).then(response => {
-            if (response.ok) {
+        }).then(async response => {
+            // FormSubmit.co returns JSON responses
+            const responseData = await response.json().catch(() => null);
+            
+            if (response.ok || response.status === 200) {
                 status.innerHTML = "Thanks for your submission!";
                 status.className = "success-message";
                 form.reset();
                 showNotification('Thanks for your submission! We\'ll be in touch soon.', 'success');
             } else {
-                response.json().then(data => {
-                    if (data.error) {
-                        status.innerHTML = data.error;
-                        showNotification(data.error, 'error');
-                    } else {
-                        status.innerHTML = "Oops! There was a problem submitting your form";
-                        showNotification('Oops! There was a problem submitting your form', 'error');
+                // Handle FormSubmit.co specific errors
+                let errorMessage = "Oops! There was a problem submitting your form";
+                
+                if (responseData) {
+                    if (responseData.error) {
+                        errorMessage = responseData.error;
+                    } else if (responseData.message) {
+                        errorMessage = responseData.message;
                     }
-                }).catch(() => {
-                    status.innerHTML = "Thanks for your submission!";
-                    status.className = "success-message";
-                    form.reset();
-                    showNotification('Thanks for your submission! We\'ll be in touch soon.', 'success');
-                });
+                    
+                    // Check for email verification requirement
+                    if (errorMessage.toLowerCase().includes('verify') || errorMessage.toLowerCase().includes('confirmation')) {
+                        errorMessage = "Please check your email and verify the address with FormSubmit.co to receive form submissions.";
+                    }
+                }
+                
+                status.innerHTML = errorMessage;
+                showNotification(errorMessage, 'error');
+                console.error('FormSubmit.co error:', responseData || response.statusText);
             }
         }).catch(error => {
-            console.error('Form error:', error);
-            status.innerHTML = "Oops! There was a problem submitting your form";
-            showNotification('Oops! There was a problem submitting your form. Please try again or call us directly.', 'error');
+            console.error('Form submission error:', error);
+            status.innerHTML = "Oops! There was a problem submitting your form. Please try again or call us directly at 562-538-7451.";
+            showNotification('Network error. Please check your connection and try again, or call us at 562-538-7451.', 'error');
         }).finally(() => {
             // Restore button
             submitBtn.innerHTML = originalText;
