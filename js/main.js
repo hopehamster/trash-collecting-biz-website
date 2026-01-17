@@ -259,6 +259,12 @@ function initFormHandling() {
         if (emailInput) emailInput.value = email;
         if (messageInput) messageInput.value = message;
         
+        // Set _replyto field for FormSubmit.co (allows recipient to reply directly to sender)
+        const replyToField = form.querySelector('#form-replyto');
+        if (replyToField) {
+            replyToField.value = email;
+        }
+        
         const data = new FormData(event.target);
 
         // Disable button and show loading state
