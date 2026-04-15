@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollEffects();
     initBackToTop();
     initFormHandling();
+    initQuickQuoteAssist();
     initAnimations();
     initLightbox();
     initParallax();
@@ -33,6 +34,75 @@ function initPreloader() {
                 preloader.style.display = 'none';
             }, 500);
         }, 500);
+    });
+}
+
+/**
+ * Quick Quote Assistant
+ * Pre-fills the existing contact form while keeping submission flow unchanged.
+ */
+function initQuickQuoteAssist() {
+    const quickWrap = document.getElementById('quick-quote-assist');
+    if (!quickWrap) return;
+
+    const quickService = document.getElementById('quick-service');
+    const quickZip = document.getElementById('quick-zip');
+    const quickUrgency = document.getElementById('quick-urgency');
+    const quickButton = document.getElementById('quick-continue');
+
+    const form = document.getElementById('contact-form');
+    const serviceInput = document.getElementById('service');
+    const messageInput = document.getElementById('message');
+    const nameInput = document.getElementById('name');
+    const hiddenQuickZip = document.getElementById('hidden-quick-zip');
+    const hiddenQuickUrgency = document.getElementById('hidden-quick-urgency');
+
+    if (!quickButton || !form) return;
+
+    quickButton.addEventListener('click', function() {
+        const serviceValue = quickService ? quickService.value : '';
+        const zipValue = quickZip ? quickZip.value.trim() : '';
+        const urgencyValue = quickUrgency ? quickUrgency.value : 'flexible';
+
+        if (!serviceValue) {
+            showNotification('Please choose a service type to continue.', 'error');
+            if (quickService) quickService.focus();
+            return;
+        }
+
+        if (zipValue && !/^\d{5}$/.test(zipValue)) {
+            showNotification('Please enter a valid 5-digit ZIP code.', 'error');
+            if (quickZip) quickZip.focus();
+            return;
+        }
+
+        if (serviceInput) {
+            serviceInput.value = serviceValue;
+        }
+
+        if (hiddenQuickZip) {
+            hiddenQuickZip.value = zipValue;
+        }
+
+        if (hiddenQuickUrgency) {
+            hiddenQuickUrgency.value = urgencyValue;
+        }
+
+        if (messageInput) {
+            const summary = `[Quick Quote] Service: ${serviceValue}; Timeline: ${urgencyValue}; ZIP: ${zipValue || 'not provided'}.`;
+            if (!messageInput.value.trim()) {
+                messageInput.value = summary + ' ';
+            } else if (!messageInput.value.includes('[Quick Quote]')) {
+                messageInput.value = summary + '\n' + messageInput.value;
+            }
+        }
+
+        form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        window.setTimeout(function() {
+            if (nameInput) nameInput.focus();
+        }, 350);
+
+        showNotification('Great, your quote details were pre-filled below.', 'success');
     });
 }
 

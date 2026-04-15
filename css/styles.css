@@ -1066,6 +1066,58 @@ button {
     font-size: var(--text-lg);
 }
 
+/* ===== SERVICE AREAS ===== */
+.areas {
+    background: linear-gradient(180deg, #ffffff 0%, #f4faf7 100%);
+}
+
+.areas__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-6);
+}
+
+.areas__card {
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-6);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base);
+}
+
+.areas__card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+    border-color: rgba(45, 138, 94, 0.35);
+}
+
+.areas__card h3 {
+    font-family: var(--font-heading);
+    color: var(--color-primary-darkest);
+    font-size: var(--text-xl);
+    margin-bottom: var(--space-2);
+}
+
+.areas__card p {
+    color: var(--color-gray-700);
+    margin-bottom: var(--space-4);
+}
+
+.areas__link {
+    color: var(--color-primary);
+    font-weight: 700;
+}
+
+.areas__link:hover {
+    color: var(--color-primary-light);
+}
+
+.areas__cta {
+    text-align: center;
+    margin-top: var(--space-8);
+}
+
 /* ===== GALLERY SECTION ===== */
 .gallery {
     background: var(--color-gray-100);
@@ -1327,6 +1379,40 @@ button {
     margin-bottom: var(--space-4);
 }
 
+/* Quote Assistant */
+.quote-assist {
+    background: rgba(10, 28, 22, 0.45);
+    border: 1px solid rgba(154, 205, 50, 0.25);
+    border-radius: var(--radius-xl);
+    padding: var(--space-5);
+    margin-bottom: var(--space-6);
+}
+
+.quote-assist__title {
+    font-family: var(--font-heading);
+    font-size: var(--text-xl);
+    color: var(--color-white);
+    margin-bottom: var(--space-2);
+}
+
+.quote-assist__subtitle {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: var(--text-sm);
+    margin-bottom: var(--space-4);
+}
+
+.quote-assist__row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-4);
+}
+
+.quote-assist__button {
+    margin-top: var(--space-2);
+    width: 100%;
+    justify-content: center;
+}
+
 /* Contact Form */
 .form__group {
     margin-bottom: var(--space-4);
@@ -1578,6 +1664,10 @@ button {
     transform: translateY(-3px);
 }
 
+.mobile-cta-bar {
+    display: none;
+}
+
 /* ===== RESPONSIVE DESIGN ===== */
 
 /* Tablet */
@@ -1653,6 +1743,10 @@ button {
         grid-template-rows: auto;
     }
 
+    .areas__grid {
+        grid-template-columns: 1fr;
+    }
+
     .gallery__item--large,
     .gallery__item--wide {
         grid-column: span 2;
@@ -1724,6 +1818,10 @@ button {
         grid-template-columns: 1fr;
     }
 
+    .quote-assist__row {
+        grid-template-columns: 1fr;
+    }
+
     .contact__scheduler,
     .contact__form-wrapper {
         padding: var(--space-6);
@@ -1735,6 +1833,44 @@ button {
 
     .footer__brand {
         grid-column: span 1;
+    }
+
+    .mobile-cta-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        z-index: calc(var(--z-fixed) + 5);
+        box-shadow: 0 -10px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .mobile-cta-bar__btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 56px;
+        font-family: var(--font-heading);
+        font-weight: 700;
+        font-size: var(--text-sm);
+        color: var(--color-white);
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+    }
+
+    .mobile-cta-bar__btn--call {
+        background: var(--color-primary);
+    }
+
+    .mobile-cta-bar__btn--quote {
+        background: var(--color-accent-orange);
+    }
+
+    .back-to-top {
+        bottom: 86px;
+        right: var(--space-4);
     }
 }
 

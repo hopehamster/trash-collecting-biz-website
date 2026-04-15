@@ -9,7 +9,7 @@
     <meta name="theme-color" content="#0f261d">
     <link rel="canonical" href="https://www.wedoitallnv.com/">
     <link rel="alternate" hreflang="en-us" href="https://www.wedoitallnv.com/">
-    <link rel="preload" as="image" href="images/hero-bg-clean.png" fetchpriority="high">
+    <link rel="preload" as="image" href="images/optimized/hero-bg-clean.webp" type="image/webp" fetchpriority="high">
     
     <!-- Security Headers -->
     <meta http-equiv="X-Frame-Options" content="DENY">
@@ -61,10 +61,24 @@
         "addressRegion": "NV",
         "addressCountry": "US"
       },
-      "areaServed": {
-        "@type": "City",
-        "name": "Las Vegas"
-      },
+            "areaServed": [
+                {
+                    "@type": "City",
+                    "name": "Las Vegas"
+                },
+                {
+                    "@type": "AdministrativeArea",
+                    "name": "Summerlin"
+                },
+                {
+                    "@type": "City",
+                    "name": "Henderson"
+                },
+                {
+                    "@type": "City",
+                    "name": "North Las Vegas"
+                }
+            ],
             "priceRange": "$$",
             "hasOfferCatalog": {
                 "@type": "OfferCatalog",
@@ -195,6 +209,9 @@
                         <a href="#services" class="nav__link">Services</a>
                     </li>
                     <li class="nav__item">
+                        <a href="#areas" class="nav__link">Areas</a>
+                    </li>
+                    <li class="nav__item">
                         <a href="#gallery" class="nav__link">Gallery</a>
                     </li>
                     <li class="nav__item">
@@ -229,7 +246,7 @@
     <!-- Main Content -->
     <main>
         <!-- Hero Section -->
-        <section class="hero" id="home" style="background: linear-gradient(135deg, rgba(15, 38, 29, 0.9) 0%, rgba(26, 90, 58, 0.8) 100%), url('images/hero-bg-clean.png'); background-size: cover; background-position: center;">
+        <section class="hero" id="home" style="background-image: linear-gradient(135deg, rgba(15, 38, 29, 0.9) 0%, rgba(26, 90, 58, 0.8) 100%), image-set(url('images/optimized/hero-bg-clean.webp') type('image/webp'), url('images/hero-bg-clean.png') type('image/png')); background-size: cover; background-position: center;">
             <div class="hero__waves">
                 <svg class="wave wave--1" viewBox="0 0 1440 320" preserveAspectRatio="none">
                     <path fill="rgba(45, 138, 94, 0.3)" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
@@ -505,6 +522,39 @@
             </div>
         </section>
 
+        <!-- Service Areas Section -->
+        <section class="areas section" id="areas">
+            <div class="container">
+                <div class="section__header">
+                    <span class="section__subtitle">Service Areas</span>
+                    <h2 class="section__title">Serving Las Vegas & <span class="highlight">Nearby Communities</span></h2>
+                    <p class="section__description">We provide junk removal, clean-outs, and demolition support across the valley with fast response windows.</p>
+                </div>
+
+                <div class="areas__grid">
+                    <article class="areas__card" data-reveal="up" data-reveal-delay="0">
+                        <h3>Summerlin</h3>
+                        <p>Home clean-outs, furniture pickup, and yard debris hauling for West Las Vegas neighborhoods.</p>
+                        <a href="/locations/summerlin/" class="areas__link">Summerlin service page →</a>
+                    </article>
+                    <article class="areas__card" data-reveal="up" data-reveal-delay="100">
+                        <h3>Henderson</h3>
+                        <p>Reliable move-out cleanup and junk hauling for homes, rentals, and small commercial sites.</p>
+                        <a href="/locations/henderson/" class="areas__link">Henderson service page →</a>
+                    </article>
+                    <article class="areas__card" data-reveal="up" data-reveal-delay="200">
+                        <h3>North Las Vegas</h3>
+                        <p>Same-week pickup for bulky items, demolition debris, and full-property clean-up projects.</p>
+                        <a href="/locations/north-las-vegas/" class="areas__link">North Las Vegas service page →</a>
+                    </article>
+                </div>
+
+                <div class="areas__cta" data-reveal="up" data-reveal-delay="280">
+                    <a href="/locations/" class="btn btn--primary">See All Service Areas</a>
+                </div>
+            </div>
+        </section>
+
         <!-- Gallery Section -->
         <section class="gallery section" id="gallery">
             <div class="container">
@@ -516,42 +566,60 @@
 
                 <div class="gallery__grid">
                     <div class="gallery__item gallery__item--large" data-reveal="up" data-reveal-delay="0">
-                        <img src="images/gallery-tree-trimming-after.jpg" alt="Expert Palm Tree Trimming for a Clean, Manicured Look - After" class="gallery__image" loading="lazy">
+                        <picture>
+                            <source srcset="images/optimized/gallery-tree-trimming-after.webp" type="image/webp">
+                            <img src="images/gallery-tree-trimming-after.jpg" alt="Expert Palm Tree Trimming for a Clean, Manicured Look - After" class="gallery__image" loading="lazy">
+                        </picture>
                         <div class="gallery__overlay">
                             <span class="gallery__label">Tree Trimming</span>
                             <span class="gallery__sublabel">Expert Palm Tree Trimming - After</span>
                         </div>
                     </div>
                     <div class="gallery__item" data-reveal="up" data-reveal-delay="80">
-                        <img src="images/gallery-house-cleanout-1.jpg" alt="Shed and Yard Cleanout: Tackling Major Clutter - Before" class="gallery__image" loading="lazy">
+                        <picture>
+                            <source srcset="images/optimized/gallery-house-cleanout-1.webp" type="image/webp">
+                            <img src="images/gallery-house-cleanout-1.jpg" alt="Shed and Yard Cleanout: Tackling Major Clutter - Before" class="gallery__image" loading="lazy">
+                        </picture>
                         <div class="gallery__overlay">
                             <span class="gallery__label">House Clean Out</span>
                             <span class="gallery__sublabel">Shed & Yard Cleanout - Before</span>
                         </div>
                     </div>
                     <div class="gallery__item" data-reveal="up" data-reveal-delay="160">
-                        <img src="images/gallery-house-cleanout-2.jpg" alt="Tackling the Toughest Yard Cleanups - Before" class="gallery__image" loading="lazy">
+                        <picture>
+                            <source srcset="images/optimized/gallery-house-cleanout-2.webp" type="image/webp">
+                            <img src="images/gallery-house-cleanout-2.jpg" alt="Tackling the Toughest Yard Cleanups - Before" class="gallery__image" loading="lazy">
+                        </picture>
                         <div class="gallery__overlay">
                             <span class="gallery__label">House Clean Out</span>
                             <span class="gallery__sublabel">Backyard Cleanup - Before</span>
                         </div>
                     </div>
                     <div class="gallery__item" data-reveal="up" data-reveal-delay="240">
-                        <img src="images/gallery-tree-trimming-before.jpg" alt="Palm Tree Before Trimming - Overgrown Palm Fronds" class="gallery__image" loading="lazy">
+                        <picture>
+                            <source srcset="images/optimized/gallery-tree-trimming-before.webp" type="image/webp">
+                            <img src="images/gallery-tree-trimming-before.jpg" alt="Palm Tree Before Trimming - Overgrown Palm Fronds" class="gallery__image" loading="lazy">
+                        </picture>
                         <div class="gallery__overlay">
                             <span class="gallery__label">Tree Trimming</span>
                             <span class="gallery__sublabel">Palm Tree - Before</span>
                         </div>
                     </div>
                     <div class="gallery__item gallery__item--wide" data-reveal="up" data-reveal-delay="320">
-                        <img src="images/gallery-yard.png" alt="Yard Clean Up Before and After" class="gallery__image" loading="lazy">
+                        <picture>
+                            <source srcset="images/optimized/gallery-yard.webp" type="image/webp">
+                            <img src="images/gallery-yard.png" alt="Yard Clean Up Before and After" class="gallery__image" loading="lazy">
+                        </picture>
                         <div class="gallery__overlay">
                             <span class="gallery__label">Backyard Transformation</span>
                             <span class="gallery__sublabel">Before & After</span>
                         </div>
                     </div>
                     <div class="gallery__item" data-reveal="up" data-reveal-delay="400">
-                        <img src="images/gallery-tree-trimming-before-2.jpg" alt="Palm Tree Before Trimming - Dead Fronds" class="gallery__image" loading="lazy">
+                        <picture>
+                            <source srcset="images/optimized/gallery-tree-trimming-before-2.webp" type="image/webp">
+                            <img src="images/gallery-tree-trimming-before-2.jpg" alt="Palm Tree Before Trimming - Dead Fronds" class="gallery__image" loading="lazy">
+                        </picture>
                         <div class="gallery__overlay">
                             <span class="gallery__label">Tree Trimming</span>
                             <span class="gallery__sublabel">Palm Tree Maintenance - Before</span>
@@ -662,6 +730,42 @@
                 <div class="contact__content" style="grid-template-columns: 1fr;">
                     <!-- Contact Form -->
                     <div class="contact__form-wrapper" style="max-width: 800px; margin: 0 auto;" data-reveal="up">
+                        <div class="quote-assist" id="quick-quote-assist">
+                            <h3 class="quote-assist__title">Quick Quote Assistant</h3>
+                            <p class="quote-assist__subtitle">Start with a few details and we will pre-fill your form below. Your current contact form still works exactly the same.</p>
+                            <div class="quote-assist__row">
+                                <div class="form__group">
+                                    <label for="quick-service" class="form__label">Job Type</label>
+                                    <select id="quick-service" class="form__select">
+                                        <option value="">Select service...</option>
+                                        <option value="junk-removal">Junk Removal</option>
+                                        <option value="house-cleanout">House Clean Out</option>
+                                        <option value="garage-cleanout">Garage Clean Out</option>
+                                        <option value="tree-trimming">Tree Trimming</option>
+                                        <option value="landscaping">Landscaping</option>
+                                        <option value="demolition">Demolition</option>
+                                        <option value="gravel-debris">Gravel & Debris</option>
+                                        <option value="furniture">Furniture Pickup</option>
+                                        <option value="moving">Moving Help</option>
+                                        <option value="backyard">Back Yard Clean Up</option>
+                                    </select>
+                                </div>
+                                <div class="form__group">
+                                    <label for="quick-zip" class="form__label">ZIP Code</label>
+                                    <input type="text" id="quick-zip" class="form__input" inputmode="numeric" maxlength="5" placeholder="89101">
+                                </div>
+                                <div class="form__group">
+                                    <label for="quick-urgency" class="form__label">Timeline</label>
+                                    <select id="quick-urgency" class="form__select">
+                                        <option value="flexible">Flexible</option>
+                                        <option value="this-week">This Week</option>
+                                        <option value="today">Today / ASAP</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn--secondary quote-assist__button" id="quick-continue">Continue to Full Quote</button>
+                        </div>
+
                         <div class="form__header">
                             <h3>✉️ Send a Message</h3>
                             <p>Or fill out the form below and we'll get back to you ASAP</p>
@@ -672,6 +776,8 @@
                             <input type="hidden" name="_next" value="#contact">
                             <input type="hidden" name="_template" value="box">
                             <input type="hidden" name="_autoresponse" value="Thank you for contacting WE DO IT ALL! We'll get back to you soon.">
+                            <input type="hidden" name="quick_zip" id="hidden-quick-zip" value="">
+                            <input type="hidden" name="quick_urgency" id="hidden-quick-urgency" value="">
                             <div class="form__group">
                                 <label for="name" class="form__label">Full Name *</label>
                                 <input type="text" id="name" name="name" class="form__input" placeholder="John Doe" required>
@@ -824,6 +930,11 @@
     </footer>
 
     <!-- Back to Top Button -->
+    <div class="mobile-cta-bar" id="mobile-cta-bar" aria-label="Quick actions">
+        <a href="tel:5625387451" class="mobile-cta-bar__btn mobile-cta-bar__btn--call">Call 562-538-7451</a>
+        <a href="#contact" class="mobile-cta-bar__btn mobile-cta-bar__btn--quote">Get Quote</a>
+    </div>
+
     <a href="#home" class="back-to-top" id="back-to-top" aria-label="Back to top">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 15l-6-6-6 6"/>
@@ -831,6 +942,50 @@
     </a>
 
     <script src="js/main.js"></script>
+
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Service",
+                    "name": "Junk Removal",
+                    "provider": {"@id": "https://www.wedoitallnv.com/#localbusiness"},
+                    "areaServed": [
+                        {"@type": "City", "name": "Las Vegas"},
+                        {"@type": "City", "name": "Summerlin"},
+                        {"@type": "City", "name": "Henderson"},
+                        {"@type": "City", "name": "North Las Vegas"}
+                    ],
+                    "serviceType": "Residential and commercial junk hauling"
+                },
+                {
+                    "@type": "Service",
+                    "name": "House and Garage Clean-Outs",
+                    "provider": {"@id": "https://www.wedoitallnv.com/#localbusiness"},
+                    "areaServed": [
+                        {"@type": "City", "name": "Las Vegas"},
+                        {"@type": "City", "name": "Summerlin"},
+                        {"@type": "City", "name": "Henderson"},
+                        {"@type": "City", "name": "North Las Vegas"}
+                    ],
+                    "serviceType": "Full-property clean out service"
+                },
+                {
+                    "@type": "Service",
+                    "name": "Light Demolition",
+                    "provider": {"@id": "https://www.wedoitallnv.com/#localbusiness"},
+                    "areaServed": [
+                        {"@type": "City", "name": "Las Vegas"},
+                        {"@type": "City", "name": "Summerlin"},
+                        {"@type": "City", "name": "Henderson"},
+                        {"@type": "City", "name": "North Las Vegas"}
+                    ],
+                    "serviceType": "Small structure and debris demolition cleanup"
+                }
+            ]
+        }
+        </script>
 
         <script type="application/ld+json">
         {
