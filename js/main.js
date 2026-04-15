@@ -473,58 +473,50 @@ function removeNotification(notification) {
  * Scroll Animations
  */
 function initAnimations() {
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.1
-    };
+    const revealElements = document.querySelectorAll('[data-reveal]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    const observer = new IntersectionObserver(function(entries) {
+    if (!revealElements.length) return;
+
+    if (prefersReducedMotion) {
+        document.body.classList.add('reduced-motion');
+        revealElements.forEach(function(el) {
+            el.classList.add('is-revealed');
+        });
+        return;
+    }
+
+    document.body.classList.add('motion-enabled');
+
+    revealElements.forEach(function(el) {
+        const delay = el.getAttribute('data-reveal-delay');
+        if (delay) {
+            el.style.setProperty('--reveal-delay', delay + 'ms');
+        }
+    });
+
+    const observer = new IntersectionObserver(function(entries, io) {
         entries.forEach(function(entry) {
             if (entry.isIntersecting) {
-                entry.target.classList.add('animate-in');
-                observer.unobserve(entry.target);
+                entry.target.classList.add('is-revealed');
+                io.unobserve(entry.target);
             }
         });
-    }, observerOptions);
-
-    // Observe service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(function(card, index) {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        card.style.transition = 'opacity 0.5s ease ' + (index * 0.1) + 's, transform 0.5s ease ' + (index * 0.1) + 's';
-        observer.observe(card);
+    }, {
+        root: null,
+        rootMargin: '0px 0px -10% 0px',
+        threshold: 0.18
     });
 
-    // Observe other elements
-    const animateElements = document.querySelectorAll('.about__content, .gallery__item, .info-card, .feature');
-    animateElements.forEach(function(el) {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(20px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
-    });
-
-    // Add animate-in class styles
-    const animateStyles = `
-        .animate-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
+    revealElements.forEach(function(el) {
+        if (el.getAttribute('data-reveal-onload') === 'true') {
+            const delay = Number.parseInt(el.getAttribute('data-reveal-delay') || '0', 10);
+            window.setTimeout(function() {
+                el.classList.add('is-revealed');
+            }, delay);
+        } else {
+            observer.observe(el);
         }
-    `;
-    const styleSheet = document.createElement('style');
-    styleSheet.textContent = animateStyles;
-    document.head.appendChild(styleSheet);
-
-    // Parallax effect for hero waves
-    const waves = document.querySelectorAll('.wave');
-    window.addEventListener('scroll', function() {
-        const scrolled = window.pageYOffset;
-        waves.forEach(function(wave, index) {
-            const speed = 0.1 * (index + 1);
-            wave.style.transform = 'translateY(' + (scrolled * speed) + 'px)';
-        });
     });
 }
 
@@ -611,6 +603,8 @@ function initLightbox() {
  * Enhanced Parallax Effects
  */
 function initParallax() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const hero = document.querySelector('.hero');
     if (!hero) return;
 
@@ -671,6 +665,8 @@ function initLazyLoading() {
  * Magnetic Button Effect
  */
 function initMagneticButtons() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
     const buttons = document.querySelectorAll('.btn--primary, .btn--secondary');
     
     buttons.forEach(button => {
@@ -701,10 +697,10 @@ function initVideoPlayer() {
     if (!video || !videoContainer) return;
     
     const videos = [
-        'videos/team-action-1.mov',
-        'videos/team-action-2.mov',
-        'videos/team-action-3.mov',
-        'videos/team-action-palm-tree.mov'
+        'videos/optimized/team-action-1.mp4',
+        'videos/optimized/team-action-2.mp4',
+        'videos/optimized/team-action-3.mp4',
+        'videos/optimized/team-action-palm-tree.mp4'
     ];
     
     // Reorder videos: team actions first, then palm tree at the end
@@ -712,51 +708,42 @@ function initVideoPlayer() {
     
     let currentVideoIndex = 0;
     let isPlaying = false;
+    let hasLoadedFirstVideo = false;
     
     function loadVideo(index) {
         currentVideoIndex = index;
         const videoSrc = videos[currentVideoIndex];
-        console.log(`🔄 Loading video ${currentVideoIndex + 1}: ${videoSrc}`);
-        console.log(`📹 Current video src before change: ${video.src}`);
-        
-        // Pause and reset current video
+
+        // Pause and reset current video before swapping source.
         video.pause();
         video.currentTime = 0;
-        
-        // Add loading class for fade effect
+
         video.classList.add('loading');
-        
-        // Completely remove the src to force browser to release the old video
-        const oldSrc = video.src;
-        video.src = '';
-        video.load();
-        
-        // Small delay to ensure browser releases old video
-        setTimeout(() => {
-            // Set new source with cache busting to prevent browser caching
-            const newSrc = videoSrc + '?v=' + currentVideoIndex + '&t=' + Date.now();
-            video.src = newSrc;
-            
-            // Force reload
+
+        if (video.getAttribute('src') !== videoSrc) {
+            video.setAttribute('src', videoSrc);
             video.load();
-            
-            // Also clear any potential loop behavior
-            video.loop = false;
-            
-            console.log(`✅ New video src set to: ${video.src}`);
-            console.log(`🎬 Video element readyState: ${video.readyState}`);
-        }, 50);
+        }
+
+        video.loop = false;
+        hasLoadedFirstVideo = true;
     }
     
     function playVideo() {
-        // If video hasn't been loaded yet, load the first one
-        if (!video.src || video.src === '') {
+        // Delay network work until first user interaction.
+        if (!hasLoadedFirstVideo) {
             loadVideo(0);
+            video.addEventListener('loadeddata', function startFirstPlayback() {
+                video.classList.remove('loading');
+                playVideo();
+            }, { once: true });
+            return;
         }
-        
+
         video.play().then(() => {
             videoContainer.classList.add('playing');
             isPlaying = true;
+            video.classList.remove('loading');
         }).catch(err => {
             console.log('Video play error:', err);
         });
@@ -787,22 +774,20 @@ function initVideoPlayer() {
     
     // Loop to next video when current ends
     video.addEventListener('ended', () => {
-        console.log('🎬 Video ended event fired!');
         const nextIndex = (currentVideoIndex + 1) % videos.length;
-        console.log(`📹 Video ${currentVideoIndex + 1} ended. Loading video ${nextIndex + 1}...`);
-        
+
         // Load the next video
         loadVideo(nextIndex);
-        
+
         // Wait for video to be ready, then play
         video.addEventListener('loadeddata', function playNext() {
-            console.log(`✅ Video ${nextIndex + 1} loaded, starting playback...`);
             video.classList.remove('loading'); // Remove loading class for fade in
-            
+
             video.play().then(() => {
-                console.log(`▶️ Now playing video ${nextIndex + 1} of ${videos.length}`);
+                videoContainer.classList.add('playing');
+                isPlaying = true;
             }).catch(err => {
-                console.log('❌ Error playing next video:', err);
+                console.log('Error playing next video:', err);
             });
             // Remove this listener so it doesn't fire multiple times
             video.removeEventListener('loadeddata', playNext);
@@ -815,27 +800,13 @@ function initVideoPlayer() {
         const nextIndex = (currentVideoIndex + 1) % videos.length;
         if (nextIndex !== currentVideoIndex) {
             loadVideo(nextIndex);
-            setTimeout(() => video.play(), 100);
+            video.addEventListener('loadeddata', function playRecovered() {
+                video.classList.remove('loading');
+                video.play().catch(() => {});
+                video.removeEventListener('loadeddata', playRecovered);
+            }, { once: true });
         }
     });
-    
-    // Auto-play on hover (optional - can be removed if too aggressive)
-    let hoverTimeout;
-    videoContainer.addEventListener('mouseenter', () => {
-        hoverTimeout = setTimeout(() => {
-            if (video.paused || video.ended) {
-                playVideo();
-            }
-        }, 2000); // Play after 2 seconds of hover
-    });
-    
-    videoContainer.addEventListener('mouseleave', () => {
-        clearTimeout(hoverTimeout);
-        // Don't pause on mouse leave - let user control
-    });
-    
-    // Initialize with first video (but don't autoplay)
-    loadVideo(0);
 }
 
 /**

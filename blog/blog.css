@@ -1,0 +1,24 @@
+:root { --blog-max: 1180px; --blog-reading: 820px; }
+.blog-main { min-height: 100vh; padding-top: 88px; background: #f6fbf8; }
+.blog-hero { background: linear-gradient(135deg, #0f261d 0%, #1a5a3a 100%); color: #fff; padding: clamp(3rem, 8vw, 6rem) 1rem; }
+.blog-hero__inner { max-width: var(--blog-max); margin: 0 auto; }
+.blog-hero h1 { font-family: var(--font-heading); font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1.1; margin-bottom: .75rem; }
+.blog-hero p { max-width: 760px; opacity: .92; }
+.blog-grid-wrap { max-width: var(--blog-max); margin: 0 auto; padding: clamp(2rem, 6vw, 4.5rem) 1rem; }
+.blog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+.blog-card { background: #fff; border-radius: 16px; border: 1px solid rgba(15, 38, 29, .1); box-shadow: 0 8px 24px rgba(15, 38, 29, .07); padding: 1rem; display: flex; flex-direction: column; gap: .8rem; }
+.blog-card__meta { font-size: .82rem; color: #5d6d66; display: flex; justify-content: space-between; }
+.blog-card__category { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: #1a5a3a; background: #e5f5ec; padding: .25rem .55rem; border-radius: 999px; }
+.blog-card h2 { font-family: var(--font-heading); font-size: 1.15rem; line-height: 1.3; }
+.blog-card p { color: #46554f; }
+.blog-card a { margin-top: auto; font-weight: 700; color: #1a5a3a; }
+.blog-post { max-width: var(--blog-reading); margin: 0 auto; padding: clamp(2rem, 5vw, 4rem) 1rem 4rem; }
+.blog-post__crumbs { font-size: .9rem; margin-bottom: .8rem; color: #59675f; }
+.blog-post__crumbs a { color: #1a5a3a; font-weight: 700; }
+.blog-post h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); line-height: 1.12; margin-bottom: .7rem; }
+.blog-post__meta { color: #5a6962; font-size: .95rem; margin-bottom: 1.2rem; }
+.blog-post h2 { font-family: var(--font-heading); font-size: 1.35rem; margin-top: 1.8rem; margin-bottom: .6rem; }
+.blog-post p, .blog-post li { color: #2d3a35; }
+.blog-post ul { margin: .4rem 0 1rem 1.2rem; }
+.blog-cta { margin-top: 2rem; background: #0f261d; color: #fff; border-radius: 14px; padding: 1.1rem; }
+.blog-cta a { color: #9acd32; font-weight: 700; }

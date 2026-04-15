@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WE DO IT ALL Blog | Las Vegas Cleanup, Removal & Property Tips</title>
+  <meta name="description" content="Locally focused cleanup, junk removal, landscaping, and demolition tips for Las Vegas homeowners and property managers.">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <link rel="canonical" href="https://www.wedoitallnv.com/blog/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WE DO IT ALL Blog | Las Vegas Cleanup & Removal Tips">
+  <meta property="og:description" content="Practical Las Vegas cleanup guides covering junk removal, house clean-outs, yard cleanup, and more.">
+  <meta property="og:url" content="https://www.wedoitallnv.com/blog/">
+  <meta property="og:image" content="https://www.wedoitallnv.com/images/hero-bg-clean.png">
+  <meta property="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../css/styles.css">
+  <link rel="stylesheet" href="./blog.css">
+</head>
+<body>
+  <header class="header scrolled" id="header">
+    <nav class="nav container">
+      <a href="/" class="nav__logo"><div class="logo__text"><span class="logo__title">WE DO IT ALL</span><span class="logo__tagline">Junk-Clean Ups & More</span></div></a>
+      <div class="nav__menu" id="nav-menu"><ul class="nav__list"><li class="nav__item"><a href="/" class="nav__link">Home</a></li><li class="nav__item"><a href="/blog/" class="nav__link active">Blog</a></li><li class="nav__item"><a href="/#services" class="nav__link">Services</a></li><li class="nav__item"><a href="/#contact" class="nav__link">Contact</a></li></ul></div>
+    </nav>
+  </header>
+  <main class="blog-main">
+    <section class="blog-hero"><div class="blog-hero__inner"><h1>Las Vegas Cleanup & Removal Blog</h1><p>Helpful local guides from WE DO IT ALL covering junk removal, clean-outs, landscaping cleanup, demolition prep, and moving support.</p></div></section>
+    <section class="blog-grid-wrap"><div class="blog-grid" id="blog-grid"></div></section>
+  </main>
+  <footer class="footer"><div class="footer__content container"><div class="footer__bottom" style="border:none;padding:1rem 0"><p>&copy; <span id="current-year">2024</span> WE DO IT ALL. All rights reserved.</p><p class="footer__credit">Free Quotes • Licensed & Insured • Las Vegas, NV</p></div></div></footer>
+  <script>
+    const posts = [{"slug":"junk-removal-cost-las-vegas","date":"2024-01-15","title":"Junk Removal Cost in Las Vegas: What Affects Your Quote?","category":"Junk Removal","excerpt":"Understand how volume, access, and load type affect junk removal pricing in Las Vegas."},{"slug":"garage-cleanout-checklist-las-vegas","date":"2024-03-02","title":"Garage Clean-Out Checklist for Las Vegas Homeowners","category":"Garage Clean Outs","excerpt":"Use this practical checklist to sort, stage, and remove garage clutter before pickup day."},{"slug":"tree-trimming-cleanup-desert-properties","date":"2024-04-28","title":"Tree Trimming Cleanup Tips for Desert Properties","category":"Tree Trimming","excerpt":"Learn the safest way to prep for a tree trimming cleanup service in Southern Nevada."},{"slug":"house-cleanout-before-selling-home","date":"2024-06-11","title":"House Clean-Out Steps Before Listing Your Home","category":"House Clean Outs","excerpt":"A complete clean-out can help your property show better and sell faster in Las Vegas."},{"slug":"same-day-furniture-pickup-las-vegas","date":"2024-08-05","title":"Same-Day Furniture Pickup in Las Vegas: What to Expect","category":"Furniture Pickup","excerpt":"Need bulky items gone fast? Here is the easiest way to schedule same-day furniture pickup."},{"slug":"backyard-cleanup-wind-season-vegas","date":"2024-10-19","title":"Backyard Cleanup During Windy Season in Las Vegas","category":"Back Yard Clean Up","excerpt":"Recover your yard quickly after windy days with a focused cleanup plan."},{"slug":"light-demolition-prep-checklist","date":"2024-12-07","title":"Light Demolition Prep Checklist for Home Projects","category":"Demolition","excerpt":"Removing a shed or fence? This prep checklist helps you stay safe and organized."},{"slug":"estate-cleanout-planning-guide","date":"2025-02-14","title":"Estate Clean-Out Planning Guide for Families","category":"House Clean Outs","excerpt":"Estate clean-outs are emotional and time-sensitive; use this process to reduce stress."},{"slug":"moving-help-hauling-combo","date":"2025-05-03","title":"Moving Help + Hauling: A Smart Combo for Busy Moves","category":"Moving Help","excerpt":"Combine moving labor and junk hauling to save time and simplify your move."},{"slug":"gravel-and-debris-removal-construction","date":"2025-09-09","title":"Gravel and Debris Removal After Construction Work","category":"Gravel & Debris","excerpt":"Post-project cleanup can stall your next phase; clear gravel and debris efficiently."},{"slug":"spring-cleanup-las-vegas-2026","date":"2026-03-01","title":"Spring Property Cleanup in Las Vegas: 2026 Guide","category":"Seasonal Cleanup","excerpt":"Use this spring checklist to refresh your property before summer heat."},{"slug":"how-to-get-fast-free-quote","date":"2026-04-10","title":"How to Get a Fast, Accurate Free Quote for Cleanup Services","category":"Getting Started","excerpt":"Get a faster quote by sharing the right details up front."}];
+    const grid = document.getElementById('blog-grid');
+    const sorted = posts.slice().sort((a,b)=> new Date(b.date) - new Date(a.date));
+    grid.innerHTML = sorted.map(post => {
+      const d = new Date(post.date + 'T12:00:00').toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' });
+      return '<article class="blog-card"><span class="blog-card__category">'+post.category+'</span><div class="blog-card__meta"><span>'+d+'</span><span>Las Vegas, NV</span></div><h2>'+post.title+'</h2><p>'+post.excerpt+'</p><a href="/blog/posts/'+post.slug+'/">Read article →</a></article>';
+    }).join('');
+    document.getElementById('current-year').textContent = new Date().getFullYear();
+  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"CollectionPage","name":"WE DO IT ALL Blog","url":"https://www.wedoitallnv.com/blog/","isPartOf":{"@id":"https://www.wedoitallnv.com/#website"}}</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3 -m http.server:*)",
+      "Bash(npx serve:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git pull:*)",
+      "Bash(git checkout:*)",
+      "Bash(git branch:*)",
+      "Bash(ls:*)",
+      "Bash(open:*)",
+      "Bash(curl -I:*)",
+      "Bash(curl -s https://www.wedoitallnv.com/*)",
+      "Bash(npx html-validate:*)",
+      "Bash(npx lighthouse:*)",
+      "Read(//Users/mikesm4/Documents/Mikes work/Github/trash-collecting-biz-website/**)",
+      "Edit(//Users/mikesm4/Documents/Mikes work/Github/trash-collecting-biz-website/**)",
+      "Write(//Users/mikesm4/Documents/Mikes work/Github/trash-collecting-biz-website/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf:*)",
+      "Bash(git push --force:*)",
+      "Bash(git reset --hard:*)"
+    ]
+  }
+}

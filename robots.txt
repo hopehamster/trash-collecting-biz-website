@@ -1,8 +1,8 @@
-# robots.txt for www.wedoitallnv.com
+# robots.txt for wedoitallnv.com
 # Allow all search engines to crawl the site
 
 User-agent: *
 Allow: /
 
-# Sitemap location (if you add one later)
-# Sitemap: https://www.wedoitallnv.com/sitemap.xml
+# Sitemap location
+Sitemap: https://www.wedoitallnv.com/sitemap.xml
